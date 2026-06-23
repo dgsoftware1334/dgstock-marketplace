@@ -1,0 +1,17 @@
+{
+  "name": "dgstock-sales",
+  "version": "1.0.0",
+  "description": "16 skills d'aide à la vente pour DGStock / DG-SALE : suivi des prospections, leads chauds, relances prêtes à envoyer, réactivation du pipeline dormant, fiches d'appel, prévisions, audit du bot WhatsApp, hygiène CRM et reporting. Conçus pour booster la productivité de l'équipe commerciale (données en lecture seule via le MCP DGStock).",
+  "author": {
+    "name": "DGSoftware"
+  },
+  "keywords": [
+    "dgstock",
+    "dg-sale",
+    "crm",
+    "vente",
+    "commercial",
+    "prospection",
+    "whatsapp"
+  ]
+}

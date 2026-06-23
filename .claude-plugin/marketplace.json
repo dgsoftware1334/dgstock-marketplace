@@ -1,0 +1,17 @@
+{
+  "name": "dgstock",
+  "owner": {
+    "name": "DGSoftware"
+  },
+  "metadata": {
+    "description": "Marketplace interne DGSoftware — plugins d'aide à la vente et au pilotage commercial pour DGStock / DG-SALE.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "dgstock-sales",
+      "source": "./plugins/dgstock-sales",
+      "description": "16 skills commerciaux DGStock : prospection, relance, closing, réactivation, reporting, prévision et audit du bot WhatsApp."
+    }
+  ]
+}

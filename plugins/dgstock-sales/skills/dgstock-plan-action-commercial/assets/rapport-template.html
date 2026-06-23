@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>__TITRE__</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', Arial, sans-serif; font-size: 13px; color: #1a1a2e; background: #fff; line-height: 1.5; }
+
+  @media print {
+    body { font-size: 11px; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    header, .badge, .priority-urgent, .priority-high, .priority-normal, .priority-low, table, .kpi-card, .schedule-day, .tier-label, .alert-box {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+  }
+
+  header { background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); color: white; padding: 28px 40px 24px; display: flex; justify-content: space-between; align-items: flex-end; }
+  header .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  header .logo span { color: #e94560; }
+  header .meta { text-align: right; font-size: 11px; opacity: 0.85; line-height: 1.8; }
+  header .meta strong { font-size: 15px; opacity: 1; display: block; margin-bottom: 4px; color: white; }
+
+  .content { padding: 32px 40px; }
+
+  .kpi-row { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+  .kpi-card { flex: 1; min-width: 120px; background: #f8f9ff; border: 1px solid #e0e4f0; border-radius: 10px; padding: 16px; text-align: center; }
+  .kpi-card .value { font-size: 26px; font-weight: 700; color: #0f3460; }
+  .kpi-card .label { font-size: 10.5px; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-card.hot .value { color: #e94560; }
+  .kpi-card.money .value { color: #0a8754; }
+
+  h2 { font-size: 16px; font-weight: 700; color: #0f3460; border-left: 4px solid #e94560; padding-left: 12px; margin: 28px 0 16px; }
+  h3 { font-size: 13px; font-weight: 600; color: #333; margin: 20px 0 10px; }
+
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
+  thead tr { background: #0f3460; color: white; }
+  thead th { padding: 9px 12px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: #f5f7ff; }
+  tbody td { padding: 8px 12px; border-bottom: 1px solid #e8eaf0; vertical-align: middle; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+  .priority-urgent { background: #fee2e2; color: #c0392b; }
+  .priority-high   { background: #fde8d0; color: #c0651a; }
+  .priority-normal { background: #fef9c3; color: #856404; }
+  .priority-low    { background: #dcfce7; color: #166534; }
+  .badge-pc  { background: #e0f2fe; color: #0369a1; }
+  .badge-sad { background: #f3e8ff; color: #7c3aed; }
+  .badge-hot { background: #fee2e2; color: #c0392b; }
+
+  .prod { font-size: 10px; font-weight: 600; color: #0f3460; background: #e8edf8; padding: 2px 6px; border-radius: 4px; }
+  .prod-prod { color: #7c3aed; background: #f3e8ff; }
+  .prod-ent  { color: #0a8754; background: #dcfce7; }
+  .prod-dist { color: #c0651a; background: #fde8d0; }
+
+  .schedule-day { background: #f8f9ff; border: 1px solid #e0e4f0; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+  .schedule-day h3:first-child { background: #0f3460; color: white; margin: -20px -20px 16px; padding: 10px 20px; border-radius: 9px 9px 0 0; font-size: 13px; }
+
+  .reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+  .reco-card { background: #f8f9ff; border: 1px solid #e0e4f0; border-radius: 8px; padding: 14px; }
+  .reco-card .reco-title { font-weight: 600; font-size: 12px; color: #0f3460; margin-bottom: 6px; }
+  .reco-card p { font-size: 11.5px; color: #444; line-height: 1.6; }
+
+  .alert-box { background: #fee2e2; border-left: 4px solid #c0392b; border-radius: 0 8px 8px 0; padding: 12px 16px; margin-top: 16px; font-size: 12px; color: #7f1d1d; }
+
+  footer { background: #f0f2f8; text-align: center; padding: 14px; font-size: 10px; color: #888; margin-top: 32px; border-top: 1px solid #dde; }
+  .no-print { position: fixed; top: 20px; right: 20px; background: #e94560; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(233,69,96,0.3); }
+  .no-print:hover { background: #c0392b; }
+
+  .amount { font-weight: 600; color: #0a8754; }
+  .phone { font-family: monospace; font-size: 11px; color: #555; }
+  .tier-label { font-size: 11px; font-weight: 700; color: white; background: #0f3460; display: inline-block; padding: 3px 10px; border-radius: 4px; margin: 12px 0 8px; }
+  .tier-label.t1 { background: #c0392b; }
+  .tier-label.t2 { background: #c0651a; }
+  .tier-label.t3 { background: #0a6e3f; }
+</style>
+</head>
+<body>
+<button class="no-print" onclick="window.print()">🖨️ Imprimer / Sauvegarder PDF</button>
+
+<header>
+  <div>
+    <div class="logo">DG<span>Stock</span></div>
+    <div style="margin-top:6px; font-size:13px; font-weight:500; opacity:0.9">__SOUS_TITRE__</div>
+  </div>
+  <div class="meta">
+    <strong>__TITRE_BLOC__</strong>
+    __META_LIGNES__
+  </div>
+</header>
+
+<div class="content">
+  <!--
+    STRUCTURE ATTENDUE (remplir, supprimer ce commentaire) :
+    1. .kpi-row avec 4-5 .kpi-card (prospects analysés, clients chauds, à relancer, pipeline immédiat, dormant)
+    2. <h2>🔥 Clients vraiment chauds</h2> + table (Client, Tél, Produit, Montant, Statut, Situation tirée du WhatsApp, Priorité)
+    3. Pour chaque jour ouvré (dimanche→jeudi) : <h2>📅 JOUR date</h2> + .schedule-day avec Tier 1/2/3 (heure, client, tél, produit, montant, objectif d'appel)
+    4. <h2>⚠️ Pipeline dormant</h2> + KPIs valeur + tables par produit (jours sans contact en rouge si >14j) + .alert-box
+    5. <h2>💡 Recommandations & suggestions</h2> + .reco-grid de .reco-card (règles d'escalade enfreintes, patterns observés)
+    6. <h2>🏆 Résumé des priorités</h2> + table de synthèse
+  -->
+  __CORPS__
+</div>
+
+<footer>__PIED__</footer>
+</body>
+</html>

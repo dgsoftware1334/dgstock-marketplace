@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalogue des skills DGStock — Aide à la vente</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', Arial, sans-serif; font-size: 13px; color: #1a1a2e; background: #eef1f7; line-height: 1.55; }
+  .sheet { max-width: 1000px; margin: 0 auto; background: #fff; }
+
+  @media print {
+    body { background: #fff; font-size: 11px; }
+    .no-print { display: none !important; }
+    .cat, .skill, header, .legend, .install { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .skill { break-inside: avoid; }
+    .cat { break-inside: avoid; }
+  }
+
+  header { background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); color: #fff; padding: 30px 40px; }
+  header .logo { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  header .logo span { color: #e94560; }
+  header h1 { font-size: 19px; font-weight: 700; margin-top: 8px; }
+  header p { font-size: 12.5px; opacity: .85; margin-top: 6px; max-width: 720px; }
+  header .stats { margin-top: 16px; display: flex; gap: 26px; flex-wrap: wrap; }
+  header .stats div { font-size: 11px; opacity: .8; }
+  header .stats b { display: block; font-size: 22px; opacity: 1; }
+
+  .content { padding: 28px 40px 40px; }
+
+  .legend { background: #f8f9ff; border: 1px solid #e0e4f0; border-radius: 10px; padding: 14px 18px; font-size: 12px; color: #444; margin-bottom: 26px; }
+  .legend b { color: #0f3460; }
+  .legend .ro { display:inline-block; background:#fff4e5; color:#9a5b00; border:1px solid #f3d49b; border-radius:6px; padding:1px 8px; font-weight:600; font-size:11px; }
+
+  .cat { margin-bottom: 30px; }
+  .cat-title { font-size: 15px; font-weight: 700; color: #0f3460; border-left: 4px solid #e94560; padding-left: 12px; margin-bottom: 14px; }
+
+  .skill { border: 1px solid #e3e7f0; border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; background: #fff; }
+  .skill .cmd { font-family: 'Consolas', monospace; font-size: 13.5px; font-weight: 700; color: #0f3460; background: #eef2fb; display: inline-block; padding: 3px 10px; border-radius: 6px; }
+  .skill .does { margin-top: 9px; font-size: 12.5px; color: #222; }
+  .skill .when { margin-top: 7px; font-size: 12px; color: #555; }
+  .skill .when b { color: #0a6e3f; }
+  .skill .say { margin-top: 7px; font-size: 11.5px; color: #7c3aed; font-style: italic; }
+  .skill .say::before { content: "💬 "; font-style: normal; }
+
+  .install { background: #0f3460; color: #e8edf8; border-radius: 12px; padding: 22px 26px; margin-top: 10px; }
+  .install h2 { color: #fff; font-size: 15px; margin-bottom: 12px; }
+  .install ol { margin-left: 18px; font-size: 12.5px; line-height: 1.9; }
+  .install code { font-family: 'Consolas', monospace; background: rgba(255,255,255,.12); padding: 1px 7px; border-radius: 5px; font-size: 12px; }
+  .install .alt { margin-top: 12px; font-size: 11.5px; opacity: .85; }
+
+  footer { background: #f0f2f8; text-align: center; padding: 16px; font-size: 10.5px; color: #888; border-top: 1px solid #dde; }
+  .btn-print { position: fixed; top: 18px; right: 18px; background: #e94560; color: #fff; border: none; padding: 11px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(233,69,96,.35); }
+  .btn-print:hover { background: #c0392b; }
+</style>
+</head>
+<body>
+<button class="btn-print no-print" onclick="window.print()">🖨️ Imprimer / PDF</button>
+
+<div class="sheet">
+<header>
+  <div class="logo">DG<span>Stock</span></div>
+  <h1>Catalogue des skills — Aide à la vente & pilotage commercial</h1>
+  <p>16 assistants prêts à l'emploi pour l'équipe commerciale, utilisables dans Claude Cowork.
+     Chaque skill s'invoque par sa commande <code>/dgstock-…</code> et s'appuie sur les données du
+     CRM DGStock / DG-SALE.</p>
+  <div class="stats">
+    <div><b>16</b>skills</div>
+    <div><b>4</b>catégories</div>
+    <div><b>1</b>plugin à installer</div>
+    <div><b>100%</b>lecture seule</div>
+  </div>
+</header>
+
+<div class="content">
+
+  <div class="legend">
+    <b>Comment lire ce catalogue :</b> chaque fiche indique la <b>commande</b> à taper, ce que le skill
+    <b>fait</b>, <b>quand</b> l'utiliser, et un <b>exemple de phrase</b> qui le déclenche (pas besoin de
+    retenir la commande exacte — une demande en langage naturel suffit).
+    &nbsp; <span class="ro">Lecture seule</span> Tous les skills <b>préparent</b> l'action (listes, fiches,
+    messages) ; l'envoi et les mises à jour CRM restent faits par l'humain.
+  </div>
+
+  <!-- CAT 1 -->
+  <div class="cat">
+    <div class="cat-title">🚀 Accélération quotidienne — gagner du temps chaque jour</div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-leads-chauds-maintenant</span>
+      <div class="does"><b>Leads chauds maintenant.</b> Repère les prospects des dernières 24-72h qui ont montré une forte intention d'achat (paiement, accord, demande d'humain) et attendent un rappel — à traiter dans l'heure avant qu'ils refroidissent.</div>
+      <div class="when"><b>Quand :</b> plusieurs fois par jour, pour ne rater aucune vente chaude.</div>
+      <div class="say">« Qui veut acheter maintenant ? » · « Les leads chauds du jour »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-messages-relance-prets</span>
+      <div class="does"><b>Messages prêts à envoyer.</b> Rédige les messages WhatsApp de relance personnalisés (darija ou français, dans la langue du client), prêts à copier-coller. Vous relisez et envoyez.</div>
+      <div class="when"><b>Quand :</b> avant une session de relances, pour ne plus perdre de temps à rédiger.</div>
+      <div class="say">« Prépare les WhatsApp à envoyer aujourd'hui »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-fiche-preparation-appel</span>
+      <div class="does"><b>Fiche d'appel (Client 360°).</b> Réunit tout sur un client avant de l'appeler : profil, historique, conversation, objections, situation financière et angle d'appel conseillé.</div>
+      <div class="when"><b>Quand :</b> juste avant chaque appel ou rendez-vous important.</div>
+      <div class="say">« Prépare-moi l'appel avec Kamel Ch »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-briefing-quotidien</span>
+      <div class="does"><b>Briefing du matin.</b> Tour d'horizon condensé : qui rappeler, ventes à confirmer, impayés, signaux clients du jour — en une page.</div>
+      <div class="when"><b>Quand :</b> chaque matin pour démarrer la journée.</div>
+      <div class="say">« Mon briefing du jour » · « Par quoi je commence ? »</div>
+    </div>
+  </div>
+
+  <!-- CAT 2 -->
+  <div class="cat">
+    <div class="cat-title">💰 Chiffre d'affaires — récupérer et conclure</div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-reactivation-pipeline-dormant</span>
+      <div class="does"><b>Réactivation du pipeline dormant.</b> Campagne de récupération sur les gros dossiers jamais relancés (devis DGProduction 60K, suivis après démo abandonnés) — le plus gros gisement de CA endormi.</div>
+      <div class="when"><b>Quand :</b> chaque semaine, comme opération de reconquête dédiée.</div>
+      <div class="say">« Réactive les anciens prospects à forte valeur »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-confirmation-prestations</span>
+      <div class="does"><b>Ventes & impayés.</b> Liste les ventes à confirmer et les impayés à relancer, triés par montant.</div>
+      <div class="when"><b>Quand :</b> pour sécuriser le cash et finaliser les ventes en attente.</div>
+      <div class="say">« Qui me doit de l'argent ? » · « Ventes à confirmer »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-suivi-prospections</span>
+      <div class="does"><b>Qui rappeler aujourd'hui.</b> Liste priorisée du pipeline (rappels Premier Contact et Suivi Après Démo), du plus urgent au moins urgent.</div>
+      <div class="when"><b>Quand :</b> chaque jour pour piloter les rappels.</div>
+      <div class="say">« Fais le suivi des prospections »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-priorite-contact-clients</span>
+      <div class="does"><b>Contacts de la semaine.</b> Qui contacter de dimanche à jeudi, d'après l'analyse des conversations WhatsApp, des avis et des réclamations, avec priorités par jour.</div>
+      <div class="when"><b>Quand :</b> en début de semaine pour planifier les contacts.</div>
+      <div class="say">« Qui dois-je contacter cette semaine ? »</div>
+    </div>
+  </div>
+
+  <!-- CAT 3 -->
+  <div class="cat">
+    <div class="cat-title">📊 Pilotage & stratégie — décider et orienter</div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-plan-action-commercial</span>
+      <div class="does"><b>Plan d'action hebdomadaire.</b> Le brief complet de directeur commercial : clients vraiment chauds, planning d'appels par tranche (dim→jeu), pipeline dormant et recommandations stratégiques.</div>
+      <div class="when"><b>Quand :</b> une fois par semaine pour cadrer toute l'équipe.</div>
+      <div class="say">« Prépare le plan d'action de la semaine »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-prevision-ventes</span>
+      <div class="does"><b>Prévision de ventes (forecast).</b> Pipeline pondéré par étape et par produit + réalisé, avec une fourchette basse/médiane/haute.</div>
+      <div class="when"><b>Quand :</b> pour anticiper le CA du mois / trimestre.</div>
+      <div class="say">« Quel CA prévisionnel ce mois-ci ? »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-conversion-prospection-prestation</span>
+      <div class="does"><b>Funnel de conversion.</b> Répartition du pipeline par étape et estimation de la transformation prospection → vente, pour repérer où l'on perd les prospects.</div>
+      <div class="when"><b>Quand :</b> pour analyser la performance du tunnel de vente.</div>
+      <div class="say">« Où perd-on le plus de prospects ? »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-rapport-hebdomadaire-pdf</span>
+      <div class="does"><b>Bilan hebdomadaire.</b> Rapport consolidé pour la direction : pipeline, CA, impayés, satisfaction — en document imprimable.</div>
+      <div class="when"><b>Quand :</b> chaque fin de semaine pour le reporting.</div>
+      <div class="say">« Fais le bilan de la semaine »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-mine-objections</span>
+      <div class="does"><b>Mine d'objections.</b> Extrait des conversations les objections récurrentes (abonnement vs définitif, prix, hors-ligne…), classées par fréquence et impact, avec les parades recommandées.</div>
+      <div class="when"><b>Quand :</b> périodiquement, pour améliorer le bot, coacher l'équipe et nourrir le marketing.</div>
+      <div class="say">« Quelles objections reviennent le plus ? »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-performance-bot-whatsapp</span>
+      <div class="does"><b>Audit du bot WhatsApp.</b> Détecte les rappels promis non tenus, les leads chauds perdus faute de relais humain, et les faux prospects qui polluent le pipeline.</div>
+      <div class="when"><b>Quand :</b> régulièrement, pour régler le bot et le process.</div>
+      <div class="say">« Le bot fait-il bien son travail ? »</div>
+    </div>
+  </div>
+
+  <!-- CAT 4 -->
+  <div class="cat">
+    <div class="cat-title">🧹 Qualité & fidélisation — garder une base saine et des clients satisfaits</div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-hygiene-crm</span>
+      <div class="does"><b>Hygiène du CRM.</b> Repère les doublons clients, les fiches incomplètes et les prospects à nettoyer (faux numéros, non qualifiés).</div>
+      <div class="when"><b>Quand :</b> régulièrement, pour garder une base fiable.</div>
+      <div class="say">« Trouve les doublons clients »</div>
+    </div>
+
+    <div class="skill">
+      <span class="cmd">/dgstock-alerte-satisfaction</span>
+      <div class="does"><b>Alerte satisfaction.</b> Remonte les réclamations non traitées anciennes et les clients récurrents insatisfaits, pour éviter qu'un problème reste sans réponse.</div>
+      <div class="when"><b>Quand :</b> chaque semaine pour surveiller la satisfaction.</div>
+      <div class="say">« Y a-t-il des réclamations en attente ? »</div>
+    </div>
+  </div>
+
+  <!-- INSTALL -->
+  <div class="install">
+    <h2>📦 Installer les 16 skills en une fois (plugin)</h2>
+    <ol>
+      <li>Récupérer le dossier <code>dgstock-marketplace</code> (il contient le plugin et son manifeste).</li>
+      <li>Dans Claude Code / Cowork, ajouter le marketplace : <code>/plugin marketplace add &lt;chemin-vers-dgstock-marketplace&gt;</code></li>
+      <li>Installer le plugin : <code>/plugin install dgstock-sales@dgstock</code></li>
+      <li>Les 16 commandes <code>/dgstock-…</code> deviennent disponibles immédiatement.</li>
+    </ol>
+    <div class="alt">Alternative (sans plugin) : glisser chaque dossier de skill dans <code>~/.claude/skills/</code>.
+      Le plugin reste recommandé pour tout installer d'un coup et le partager avec l'équipe.</div>
+  </div>
+
+</div>
+
+<footer>
+  DGStock / DG-SALE · Plugin <b>dgstock-sales</b> v1.0.0 · 16 skills d'aide à la vente · Données en lecture seule via le MCP DGStock<br>
+  Pour imprimer : bouton « Imprimer / PDF » en haut à droite, ou Fichier → Imprimer → Enregistrer en PDF (A4, arrière-plans graphiques activés).
+</footer>
+</div>
+</body>
+</html>
