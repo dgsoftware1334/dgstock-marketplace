@@ -66,16 +66,16 @@ d'appel concret** (« retour sur essai → conclure / BaridiMob », pas « relan
 Place les URGENT et les essais à relancer sous 48h dès le premier jour.
 
 ### Étape 6 — Pipeline dormant
-Isole les `PC-Rappel`/`SAD-Rappel` anciens (>14 jours sans contact), surtout les gros tickets
-(DGProduction 60K). Chiffre la **valeur dormante totale** et par produit. C'est souvent le plus gros
-gisement de CA récupérable — mets-le en avant avec une `.alert-box`.
+Isole les `PC-Rappel`/`SAD-Rappel` anciens (>14 jours sans contact), surtout les gros tickets (le
+produit le plus cher de la gamme). Chiffre la **valeur dormante totale** et par produit. C'est souvent
+le plus gros gisement de CA récupérable — mets-le en avant avec une `.alert-box`.
 
 ### Étape 7 — Recommandations stratégiques
 Passe en revue les règles d'escalade du playbook (§4) et vérifie lesquelles sont **enfreintes dans
 les données réelles** de cette semaine. Émets 6–8 recommandations concrètes et chiffrées, chacune
-ancrée sur un fait observé (« X a demandé un humain le 22, toujours pas rappelé » ; « 10 prospects
-60K dorment depuis >14j = 600 000 DA »). Pas de conseils génériques — uniquement ce que les données
-prouvent.
+ancrée sur un fait observé et chiffré à partir des données lues via le MCP (ex. « ce client a demandé
+un humain il y a 2 jours, toujours pas rappelé » ; « N prospects à gros ticket dorment depuis >14j =
+X DZD »). Pas de conseils génériques — uniquement ce que les données prouvent.
 
 ### Étape 8 — Générer le rapport HTML
 `dgstock_generate_pdf` est en panne (playbook §6). Produis donc un **rapport HTML autonome,

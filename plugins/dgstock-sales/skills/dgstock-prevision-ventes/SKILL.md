@@ -37,8 +37,8 @@ Probabilité de conclusion par état du pipeline :
 | `PC-NRP` / `PC-INJ` / `PC-ligne ocupée` | 2% | contact non établi |
 | `*pas interssé` / `Faux numero` | 0% | exclus du forecast |
 
-Produit déduit du montant (`totalTTC`) : 10 500 = DGStock ; 60 000 = DGProduction ; 45-53K = Entreprise ;
-15-17K = Distributeur ; 0 = non qualifié (exclu du chiffrage).
+Produit déduit en rapprochant le montant (`totalTTC`) des tarifs réels du compte, lus via le MCP (ne
+code aucun prix en dur) ; un montant à 0 = non qualifié (exclu du chiffrage).
 
 ## Déroulé
 
@@ -53,9 +53,9 @@ Produit déduit du montant (`totalTTC`) : 10 500 = DGStock ; 60 000 = DGProducti
 4. **Donner une fourchette** : basse (réalisé + pipeline très avancé seulement : Encours + Intéressé),
    médiane (modèle complet ci-dessus), haute (si les taux de conversion s'amélioraient). Cela vaut
    mieux qu'un point unique faussement précis.
-5. **Mettre en perspective** : signale les gros contributeurs (ex. le stock DGProduction 60K) et le
-   fait qu'une partie du forecast dort (voir `dgstock-reactivation-pipeline-dormant`) — donc « activable » mais
-   pas automatique.
+5. **Mettre en perspective** : signale les gros contributeurs (ex. le stock du produit le plus cher) et
+   le fait qu'une partie du forecast dort (voir `dgstock-reactivation-pipeline-dormant`) — donc
+   « activable » mais pas automatique.
 
 ## Format de sortie
 

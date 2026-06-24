@@ -4,15 +4,23 @@ Marketplace interne **DGSoftware** pour Claude Code / Cowork. Contient le plugin
 16 skills d'aide à la vente et au pilotage commercial s'appuyant sur le CRM DGStock / DG-SALE
 (données en **lecture seule** via le MCP DGStock — les skills préparent l'action, l'humain l'exécute).
 
-> ⚠️ **Dépôt à garder privé** : il contient des éléments commerciaux internes (grille tarifaire,
-> valeurs de pipeline, stratégie du bot WhatsApp, exemples clients).
+> ℹ️ Ce dépôt ne contient **aucune donnée interne** (ni prix, ni chiffres, ni exemples clients réels) :
+> les skills lisent toutes les données en direct via le MCP DGStock. Il peut donc être partagé sans risque.
 
 ## Installation
+
+### Étape 1 — Connecter le MCP DGStock (une seule fois)
+
+Dans Cowork : **Paramètres → Connecteurs → Ajouter un connecteur personnalisé**, puis coller l'URL
+`https://mcp.dgstock.org` et s'authentifier avec le compte DGStock.
+Alternative Claude Code : `claude mcp add --transport http dgstock https://mcp.dgstock.org`
+
+### Étape 2 — Installer le plugin via GitHub
 
 Dans un terminal Claude Code / Cowork :
 
 ```
-/plugin marketplace add <owner>/<repo>
+/plugin marketplace add dgsoftware1334/dgstock-marketplace
 /plugin install dgstock-sales@dgstock
 ```
 

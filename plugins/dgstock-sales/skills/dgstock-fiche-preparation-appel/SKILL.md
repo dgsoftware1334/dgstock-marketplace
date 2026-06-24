@@ -26,9 +26,9 @@ rien.
 
 2. **Rassembler tout ce qui le concerne :**
    - **Identité** : nom, téléphone, (e-mail/adresse si présents — souvent vides).
-   - **Pipeline** : sa/ses prospection(s) — état, montant `totalTTC` → produit déduit (10 500 = DGStock ;
-     60 000 = DGProduction ; 45-53K = Entreprise ; 15-17K = Distributeur ; 0 = non qualifié), date de
-     création, ancienneté.
+   - **Pipeline** : sa/ses prospection(s) — état, montant `totalTTC` → produit déduit en rapprochant le
+     montant des tarifs réels du compte (lus via le MCP, ne code aucun prix en dur ; montant 0 = non
+     qualifié), date de création, ancienneté.
    - **Ventes** : prestations éventuelles (confirmée ? impayé `restant` > 0 ?) → un client avec un
      impayé en cours change l'angle de l'appel.
    - **Conversation WhatsApp** : `dgstock_fetch_whatsapp_messages` — lis tout l'historique. Extrais :

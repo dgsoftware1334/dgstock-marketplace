@@ -38,7 +38,7 @@ non levée (prix, hors-ligne, abonnement vs définitif).
 
 1. **Lister les conversations récentes** : `dgstock_fetch_whatsapp_conversations` (limit élevé, regarde `last_message_at` — concentre-toi sur les dernières 24-72h). Le champ `is_read`/`status` est peu fiable (souvent null) — ne t'y fie pas.
 2. **Ouvrir les conversations actives** : pour chaque conversation récente avec un `messages_count` significatif, `dgstock_fetch_whatsapp_messages`. Repère si le **dernier message est `inbound`** (le client attend) et lis les derniers échanges pour détecter les signaux ci-dessus.
-3. **Croiser avec la prospection** : recherche le prospect dans `prospections` (par nom/numéro) pour récupérer l'état, le montant (`totalTTC`) et donc le produit (10 500 = DGStock ; 60 000 = DGProduction ; 45-53K = Entreprise ; 15-17K = Distributeur ; 0 = non qualifié). Un `SAD-Rappel`/`Intéressé` chaud passe avant un `PC-Rappel` chaud.
+3. **Croiser avec la prospection** : recherche le prospect dans `prospections` (par nom/numéro) pour récupérer l'état et le montant (`totalTTC`). Déduis le produit en rapprochant ce montant des tarifs réels du compte (lis-les via le MCP, voir le playbook — ne code aucun prix en dur) ; un montant à 0 = prospect non qualifié. Un `SAD-Rappel`/`Intéressé` chaud passe avant un `PC-Rappel` chaud.
 4. **Classer** : 🔴 BRÛLANT (intention de paiement / demande d'humain / offre chiffrée en attente) puis 🟠 CHAUD (accord verbal, questions d'achat précises). Toujours écrire **la phrase de situation en clair** (« prêt à payer par BaridiMob, attend confirmation », pas « score élevé »).
 
 ## Format de sortie (court, actionnable)

@@ -1,34 +1,40 @@
-# Playbook commercial DGSoftware — référence interne
+# Playbook commercial DGSoftware — référence du skill
 
-Ce document encode la connaissance métier DGSoftware utilisée par le skill `plan-action-commercial`
-(et réutilisable par les autres skills CRM). Il transforme des données brutes du CRM en décisions
-de vente. Mets-le à jour quand la grille tarifaire, la gamme produit ou la méthode de vente changent.
+Ce document encode la **méthode** de vente utilisée par le skill `dgstock-plan-action-commercial`
+(et réutilisable par les autres skills CRM). Il transforme des données brutes du CRM en décisions de
+vente. Il ne contient aucun chiffre figé : **toutes les données (prix, volumes, montants) se lisent en
+direct via le MCP DGStock** au moment de l'exécution.
 
 ---
 
-## 1. Gamme produit & cartographie par montant
+## 1. Gamme produit & déduction du produit par le montant
 
-Le montant `totalTTC` d'une prospection révèle quel produit est vendu. Sur les données de juin 2026,
-deux SKU dominent (135 prospects à 10 500 DA, 132 à 60 000 DA). Grille validée :
+**Les prix ne sont jamais codés ici** : ils peuvent changer. Lis-les en direct via le MCP — par
+exemple le catalogue produits exposé par la configuration du bot (`dgstock_fetch_whatsapp_config`)
+et/ou en observant les montants réellement pratiqués dans `prospections` / `prestations`. Pour savoir
+quel produit correspond à une prospection, **rapproche son montant `totalTTC` des tarifs réels du
+compte** lus via le MCP.
 
-| Montant `totalTTC` | Produit déduit | Cible type | Lecture commerciale |
-|---|---|---|---|
-| **10 500 DA** (ou 10 200 promo) | **DGStock** (gestion stock/caisse de base) | Commerce, boutique, petite activité | Ticket d'entrée, cycle court, décision rapide |
-| **60 000 / 63 000 DA** | **DGProduction** (gestion de production) | Usine, atelier, fabrication, conditionnement | Gros ticket, cycle plus long, décideur = patron |
-| **45 000–53 550 DA** | **DGStock ENTREPRISE** (multi-points, app mobile) | Multi-boutiques, PME structurée | Souvent issu d'une négociation, valeur élevée |
-| **15 000–17 000 DA** | **DGStock Distributeur** (gestion tournées/distribution) | Distributeur, grossiste, livraison | Argument clé : factures de route, suivi livreurs |
-| **250 000 DA** ou sur devis | **DGProject** (BTP / projets) | BTP, immobilier, gestion de chantiers | Grand compte, vente complexe, spécialiste requis |
-| **0 DA** | **Non qualifié** | — | Prospect créé sans produit défini → à qualifier, pas à chiffrer |
+Repères de gamme (les tarifs exacts se lisent via le MCP, du moins cher au plus cher) :
 
-⚠️ Le montant de la **prospection** = tarif catalogue. Le montant réellement négocié apparaît souvent
-dans la **conversation WhatsApp** (remises, offres Sara, paiement BaridiMob). Toujours préférer le
-montant discuté en conversation s'il existe ; sinon, utiliser le tarif catalogue ci-dessus.
+| Produit | Cible type | Lecture commerciale |
+|---|---|---|
+| **DGStock** (gestion stock / caisse) | Commerce, boutique, petite activité | Ticket d'entrée, cycle court, décision rapide |
+| **DGStock Distributeur** (tournées / distribution) | Distributeur, grossiste, livraison | Argument clé : factures de route, suivi livreurs |
+| **DGStock Entreprise** (multi-points, app mobile) | Multi-boutiques, PME structurée | Valeur élevée, souvent négocié |
+| **DGProduction** (gestion de production) | Usine, atelier, fabrication, conditionnement | Gros ticket, cycle plus long, décideur = patron |
+| **DGProject** (BTP / projets) | BTP, immobilier, chantiers | Grand compte, vente complexe, spécialiste requis |
+| *(montant à 0)* | **Non qualifié** | Prospect sans produit/prix défini → à qualifier, pas à chiffrer |
+
+⚠️ Le montant d'une prospection ≈ tarif catalogue. Le montant réellement négocié (remises) apparaît
+souvent dans la conversation WhatsApp : préférer le montant discuté en conversation s'il existe.
 
 ---
 
 ## 2. Taxonomie des états du pipeline (champ `etat`)
 
-Voir aussi le skill `suivi-prospections`. Rappel condensé orienté action :
+Voir aussi le skill `dgstock-suivi-prospections`. Les libellés exacts dépendent de la configuration du
+compte (à lire via le MCP) ; rappel condensé orienté action :
 
 | État | Sens | Chaleur de base |
 |---|---|---|
@@ -51,7 +57,7 @@ Objectif : distinguer « client *vraiment* chaud » d'un simple « rappel en att
 construit en lisant la **conversation WhatsApp** du prospect (le CRM seul ne suffit pas). Additionne :
 
 **Signaux d'intention forts (WhatsApp) — +3 chacun :**
-- Mentionne un moyen/une intention de paiement (« je paie par BaridiMob », « نخلص »).
+- Mentionne un moyen/une intention de paiement (paiement mobile, « نخلص »…).
 - Demande explicitement une facture / un devis pour acheter.
 - Demande à parler à un humain / un commercial (le bot ne lui suffit plus).
 - Dit « ok », « d'accord », « je prends » ou équivalent darija (« واخا »، « نشري »).
@@ -63,8 +69,8 @@ construit en lisant la **conversation WhatsApp** du prospect (le CRM seul ne suf
 - État `SAD-*` (démo déjà faite).
 
 **Signaux de valeur / contexte — +1 chacun :**
-- Produit gros ticket (DGProduction 60K, Entreprise, DGProject).
-- Grand compte (>50 employés, plusieurs points de vente, marque connue).
+- Produit à gros ticket (le produit le plus cher de la gamme).
+- Grand compte (taille notable : plusieurs employés, plusieurs points de vente, marque connue).
 - Dernier message *entrant* récent (< 3 jours) et resté sans réponse.
 
 **Malus :**
@@ -76,24 +82,24 @@ construit en lisant la **conversation WhatsApp** du prospect (le CRM seul ne suf
 - **🟠 HAUTE (Tier 2)** : score 3–5. Chaud à faire avancer cette semaine.
 - **🟡 NORMALE / 🟢 SUIVI (Tier 3)** : score ≤ 2. À qualifier ou relancer sans urgence.
 
-Le score n'est pas une fin : **toujours afficher la *raison* en clair** (« essai envoyé le 21, pas
-relancé » plutôt que « score 7 »). Un commercial agit sur la raison, pas sur le chiffre.
+Le score n'est pas une fin : **toujours afficher la *raison* en clair** (« essai envoyé il y a 2 jours,
+pas relancé » plutôt que « score 7 »). Un commercial agit sur la raison, pas sur le chiffre.
 
 ---
 
-## 4. Règles d'escalade & de méthode (issues des conversations réelles)
+## 4. Règles d'escalade & de méthode
 
-Ces règles sont les recommandations récurrentes d'un directeur commercial. Le skill doit vérifier
-si elles sont enfreintes dans les données et, si oui, les remonter en recommandations.
+Recommandations récurrentes d'un directeur commercial. Le skill doit vérifier si elles sont enfreintes
+dans les données et, si oui, les remonter en recommandations.
 
 1. **Demande d'humain = alerte immédiate.** Si un client écrit qu'il veut parler à quelqu'un / que le bot ne convient pas, il doit être rappelé le jour même. Tout retard ici est une perte sèche.
 2. **Essai / version d'essai → rappel sous 24–48 h.** Passé ce délai, l'intérêt retombe. Repérer tout prospect « essai envoyé » sans relance récente.
-3. **Gros compte → commercial senior.** Tout prospect > 50 employés, multi-points de vente, ou ticket > 30 000 DA ne doit pas être laissé au bot seul : router vers un commercial expérimenté.
+3. **Gros compte → commercial senior.** Tout prospect de taille notable (plusieurs points de vente) ou visant un produit à ticket élevé ne doit pas être laissé au bot seul : router vers un commercial expérimenté.
 4. **Le bot qualifie, l'humain conclut.** Dès qu'un client exprime une intention d'achat (« ok », paiement), un humain prend le relais pour finaliser — ne pas laisser le bot « gérer » un closing.
 5. **Objection offline récurrente.** Plusieurs prospects demandent si ça marche hors connexion. Préparer une réponse standard ; c'est une objection bloquante fréquente.
 6. **Chaque rappel doit avoir un responsable + une date.** Les `*-Rappel` stagnent quand personne n'en est propriétaire. Recommander l'attribution nominative (donnée « commercial responsable » à activer côté DGStock).
-7. **Pipeline dormant = argent qui dort.** Tout `PC-Rappel`/`SAD-Rappel` de gros ticket (60K) sans contact depuis >14 j est une priorité de réactivation, pas un dossier perdu.
-8. **Cibler avant de prospecter.** Le taux de `pas intéressé` est élevé (~45 % de l'historique). Recommander de mieux qualifier en amont (secteur, taille, budget) — prioriser production, distribution, multi-boutiques.
+7. **Pipeline dormant = argent qui dort.** Tout `PC-Rappel`/`SAD-Rappel` à gros ticket sans contact depuis >14 j est une priorité de réactivation, pas un dossier perdu.
+8. **Cibler avant de prospecter.** Quand le taux de `pas intéressé` est élevé, recommander de mieux qualifier en amont (secteur, taille, budget) et de prioriser les segments qui convertissent le mieux. Mesurer ce taux en direct via le MCP plutôt que de le supposer.
 
 ---
 
@@ -109,7 +115,7 @@ les Tier 1 le matin (meilleur taux de décrochage et d'attention), les Tier 3 en
 
 - L'opérateur `in` ne marche pas sur `etat` → une requête `=` par état, puis fusion côté analyse.
 - `=` sur valeurs accentuées (`Intéressé`) peut renvoyer 0 → utiliser `like "ress"` puis filtrer le texte exact côté résultat (attention : « ress » matche aussi « pas interssé »).
-- `group_by` sur un champ à forte cardinalité (téléphone sur 7 900 clients) → erreur « trop de tokens ». OK sur `etat`/`totalTTC` à condition de borner par dates.
+- `group_by` sur un champ à forte cardinalité (téléphone sur des milliers de clients) → erreur « trop de tokens ». OK sur `etat`/`totalTTC` à condition de borner par dates.
 - `limit` max 200, pas de pagination `offset` → travailler par lots (filtre sur `created_at`/`numero`).
-- `dgstock_generate_pdf` est **en panne** (« Outil inconnu ») → produire un HTML imprimable, pas de PDF serveur.
+- `dgstock_generate_pdf` peut être indisponible (« Outil inconnu ») → dans ce cas produire un HTML imprimable, pas de PDF serveur.
 - Le téléphone n'est pas toujours sur la relation `client` d'une prospection → le chercher via `dgstock_fetch_clients` (search par nom), sinon marquer « → à vérifier dans DGStock ».

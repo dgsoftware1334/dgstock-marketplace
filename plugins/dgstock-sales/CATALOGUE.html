@@ -105,7 +105,7 @@
       <span class="cmd">/dgstock-fiche-preparation-appel</span>
       <div class="does"><b>Fiche d'appel (Client 360°).</b> Réunit tout sur un client avant de l'appeler : profil, historique, conversation, objections, situation financière et angle d'appel conseillé.</div>
       <div class="when"><b>Quand :</b> juste avant chaque appel ou rendez-vous important.</div>
-      <div class="say">« Prépare-moi l'appel avec Kamel Ch »</div>
+      <div class="say">« Prépare-moi l'appel avec ce client »</div>
     </div>
 
     <div class="skill">
@@ -122,7 +122,7 @@
 
     <div class="skill">
       <span class="cmd">/dgstock-reactivation-pipeline-dormant</span>
-      <div class="does"><b>Réactivation du pipeline dormant.</b> Campagne de récupération sur les gros dossiers jamais relancés (devis DGProduction 60K, suivis après démo abandonnés) — le plus gros gisement de CA endormi.</div>
+      <div class="does"><b>Réactivation du pipeline dormant.</b> Campagne de récupération sur les gros dossiers jamais relancés (gros devis et suivis après démo abandonnés) — le plus gros gisement de CA endormi.</div>
       <div class="when"><b>Quand :</b> chaque semaine, comme opération de reconquête dédiée.</div>
       <div class="say">« Réactive les anciens prospects à forte valeur »</div>
     </div>
@@ -215,17 +215,34 @@
     </div>
   </div>
 
-  <!-- INSTALL -->
+  <!-- INSTALL ÉTAPE 1 : MCP -->
   <div class="install">
-    <h2>📦 Installer les 16 skills en une fois (plugin)</h2>
+    <h2>🔌 Étape 1 — Connecter le MCP DGStock sur Cowork</h2>
+    <p style="font-size:12.5px; margin-bottom:10px; opacity:.9">Les skills lisent les données réelles
+      (clients, prospections, prix des produits, conversations WhatsApp…) via le connecteur <b>MCP
+      DGStock</b>. À connecter une seule fois&nbsp;:</p>
     <ol>
-      <li>Récupérer le dossier <code>dgstock-marketplace</code> (il contient le plugin et son manifeste).</li>
-      <li>Dans Claude Code / Cowork, ajouter le marketplace : <code>/plugin marketplace add &lt;chemin-vers-dgstock-marketplace&gt;</code></li>
+      <li>Dans Cowork, ouvrir <b>Paramètres → Connecteurs</b> (Connectors).</li>
+      <li>Cliquer <b>Ajouter un connecteur personnalisé</b> et coller l'URL : <code>https://mcp.dgstock.org</code></li>
+      <li>Valider, puis <b>s'authentifier</b> avec le compte DGStock lorsque c'est demandé (ne jamais partager le mot de passe en clair).</li>
+      <li>Une fois connecté, les outils <code>dgstock_…</code> sont disponibles : les skills lisent les prix et toutes les données en direct, rien n'est figé.</li>
+    </ol>
+    <div class="alt">Alternative en ligne de commande (Claude Code) :
+      <code>claude mcp add --transport http dgstock https://mcp.dgstock.org</code></div>
+  </div>
+
+  <!-- INSTALL ÉTAPE 2 : PLUGIN via GitHub -->
+  <div class="install" style="margin-top:18px;">
+    <h2>📦 Étape 2 — Installer le plugin (16 skills) via GitHub</h2>
+    <p style="font-size:12.5px; margin-bottom:10px; opacity:.9">Dans un terminal Claude Code / Cowork&nbsp;:</p>
+    <ol>
+      <li>Ajouter le marketplace depuis GitHub : <code>/plugin marketplace add dgsoftware1334/dgstock-marketplace</code></li>
       <li>Installer le plugin : <code>/plugin install dgstock-sales@dgstock</code></li>
       <li>Les 16 commandes <code>/dgstock-…</code> deviennent disponibles immédiatement.</li>
     </ol>
-    <div class="alt">Alternative (sans plugin) : glisser chaque dossier de skill dans <code>~/.claude/skills/</code>.
-      Le plugin reste recommandé pour tout installer d'un coup et le partager avec l'équipe.</div>
+    <div class="alt">Dépôt :
+      <a href="https://github.com/dgsoftware1334/dgstock-marketplace" style="color:#9ec1ff;">github.com/dgsoftware1334/dgstock-marketplace</a>
+      &nbsp;·&nbsp; Mettre à jour plus tard : <code>/plugin marketplace update dgstock</code></div>
   </div>
 
 </div>

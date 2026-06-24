@@ -33,8 +33,8 @@ Ne réponds jamais en français à un client qui écrit en arabe/darija, ni l'in
    (`dgstock_fetch_whatsapp_messages`) pour t'imprégner du contexte réel.
 
 2. **Comprendre le contexte de chaque client avant d'écrire** : son activité/secteur, le produit visé
-   (déduit du montant : 10 500 = DGStock ; 60 000 = DGProduction ; 45-53K = Entreprise ; 15-17K =
-   Distributeur), l'étape (premier contact vs après démo), la dernière chose dite, les objections déjà
+   (déduit en rapprochant le montant des tarifs réels du compte, lus via le MCP — ne code aucun prix en
+   dur), l'étape (premier contact vs après démo), la dernière chose dite, les objections déjà
    exprimées (abonnement vs définitif, prix, hors-ligne), et toute offre/remise déjà proposée.
 
 3. **Rédiger un message personnalisé** qui :
